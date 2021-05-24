@@ -38,7 +38,15 @@ class _LessGroupPageState extends State<LessGroupPage> {
         primarySwatch: Colors.blue,
       ),
       home: Scaffold(
-        appBar: AppBar(title: Text('StateLessWidget与基础组件123')),
+        appBar: AppBar(
+          title: Text('StateLessWidget与基础组件123'),
+          leading: GestureDetector(
+            onTap: () {
+              Navigator.pop(context);
+            },
+            child: Icon(Icons.arrow_back),
+          ),
+        ),
         bottomNavigationBar: BottomNavigationBar(
             currentIndex: _currentIndex,
             onTap: (index) {
@@ -177,23 +185,21 @@ class _LessGroupPageState extends State<LessGroupPage> {
                         _chip('ghj'),
                       ],
                     ),
-
                   ],
                 ),
               )
-            :
-        Column(
-          children: [
-            Text('分隔'),
-            Expanded(
-                child: Container(
-                  decoration: BoxDecoration(
-                    color: Colors.red,
-                  ),
-                  child: Text('填充123123'),
-                ))
-          ],
-        ),
+            : Column(
+                children: [
+                  Text('分隔'),
+                  Expanded(
+                      child: Container(
+                    decoration: BoxDecoration(
+                      color: Colors.red,
+                    ),
+                    child: Text('填充123123'),
+                  ))
+                ],
+              ),
       ),
     );
   }

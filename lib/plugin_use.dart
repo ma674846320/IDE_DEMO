@@ -25,7 +25,19 @@ class PluginUse extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: MyHomePage(title: '如何使用Flutter包和插件'),
+      home: Scaffold(
+        appBar: AppBar(
+          title: Text('如何使用Flutter包和插件'),
+          leading: GestureDetector(
+            onTap: () {
+              Navigator.pop(context);
+            },
+            child: Icon(Icons.arrow_back),
+          ),
+        ),
+        body:  MyHomePage(title:'123'),
+
+      ),
     );
   }
 
@@ -102,7 +114,7 @@ class _MyHomePageState extends State<MyHomePage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Text(
-              'You have pushed the button this many times1:',
+              'You have pushed the button this many times123:',
               style: TextStyle(color:ColorUtil.color('#dddddd')),
             ),
             Text(

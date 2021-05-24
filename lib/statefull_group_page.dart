@@ -38,7 +38,15 @@ class _StateFulGroupState extends State<StateFulGroup> {
         primarySwatch: Colors.blue,
       ),
       home: Scaffold(
-        appBar: AppBar(title: Text('StateLessWidget与基础组件')),
+        appBar: AppBar(
+          title: Text('StateLessWidget与基础组件'),
+          leading: GestureDetector(
+            onTap: () {
+              Navigator.pop(context);
+            },
+            child: Icon(Icons.arrow_back),
+          ),
+        ),
         bottomNavigationBar: BottomNavigationBar(
             currentIndex: _currentIndex,
             onTap: (index) {
@@ -91,14 +99,16 @@ class _StateFulGroupState extends State<StateFulGroup> {
                           Container(
                             height: 200,
                             margin: EdgeInsets.only(top: 10),
-                            decoration: BoxDecoration(color: Colors.lightBlueAccent),
+                            decoration:
+                                BoxDecoration(color: Colors.lightBlueAccent),
                             child: PageView(
                               children: [
-                                _image('https://image.awehome.com/data/uploads/hot-school/MTU2MDczNzEzMy05MjI=.jpg'),
-                                _item('Page1',Colors.deepPurple),
-                                _item('Page2',Colors.greenAccent),
-                                _item('Page3',Colors.red),
-                                _item('Page4',Colors.deepOrangeAccent)
+                                _image(
+                                    'https://image.awehome.com/data/uploads/hot-school/MTU2MDczNzEzMy05MjI=.jpg'),
+                                _item('Page1', Colors.deepPurple),
+                                _item('Page2', Colors.greenAccent),
+                                _item('Page3', Colors.red),
+                                _item('Page4', Colors.deepOrangeAccent)
                               ],
                             ),
                           ),
@@ -148,11 +158,14 @@ class _StateFulGroupState extends State<StateFulGroup> {
     return Container(
       alignment: Alignment.center,
       decoration: BoxDecoration(color: color),
-      child: Text(title,style:TextStyle(fontSize: 22,color:Colors.white)),
+      child: Text(title, style: TextStyle(fontSize: 22, color: Colors.white)),
     );
   }
 
   _image(String src) {
-    return Image.network(src,fit: BoxFit.cover,);
+    return Image.network(
+      src,
+      fit: BoxFit.cover,
+    );
   }
 }

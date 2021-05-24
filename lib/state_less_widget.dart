@@ -28,20 +28,29 @@ class StateLessWidget extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       home: Scaffold(
-        appBar: AppBar(title: Text('StateLessWidget与基础组件')),
+        appBar: AppBar(
+          title: Text('StateLessWidget与基础组件'),
+          leading: GestureDetector(
+            onTap: () {
+              Navigator.pop(context);
+            },
+            child: Icon(Icons.arrow_back),
+          ),
+        ),
         body: Container(
           alignment: Alignment.center,
           decoration: BoxDecoration(color: Colors.white),
           child: Column(
             children: <Widget>[
               Text('I am Text', style: textStyle),
-              Icon(Icons.android,size: 50,color: Colors.red,),
+              Icon(
+                Icons.android,
+                size: 50,
+                color: Colors.red,
+              ),
               CloseButton(),
               BackButton(),
-              Chip(
-                  avatar: Icon(Icons.people),
-                  label: Text('123123123')
-              ),
+              Chip(avatar: Icon(Icons.people), label: Text('123123123')),
               Divider(
                 height: 10,
                 indent: 10,
@@ -53,7 +62,10 @@ class StateLessWidget extends StatelessWidget {
                 margin: EdgeInsets.all(10),
                 child: Container(
                   padding: EdgeInsets.all(20),
-                  child: Text('321321',style: textStyle,),
+                  child: Text(
+                    '321321',
+                    style: textStyle,
+                  ),
                 ),
               ),
               AlertDialog(
