@@ -1,6 +1,9 @@
 import 'package:demo1/demo.dart';
+import 'package:demo1/gesture_page.dart';
+import 'package:demo1/launch_page.dart';
 import 'package:demo1/less_group_page.dart';
 import 'package:demo1/plugin_use.dart';
+import 'package:demo1/res_page.dart';
 import 'package:demo1/state_less_widget.dart';
 import 'package:demo1/statefull_group_page.dart';
 import 'package:flutter/material.dart';
@@ -29,6 +32,9 @@ class MyApp extends StatelessWidget {
           'layout': (BuildContext context) => LessGroupPage(),
           'ful': (BuildContext context) => StateFulGroup(),
           'less': (BuildContext context) => StateLessWidget(),
+          'gensture': (BuildContext context) => GesturePage(),
+          'respage': (BuildContext context) => ResPage(),
+          'launchpage': (BuildContext context) => LaunchPage(),
         });
   }
 
@@ -64,6 +70,9 @@ class _RouteNavigatorState extends State<RouteNavigator> {
           _item('StatelessWidget与基础组件', StateLessWidget(), 'less'),
           _item('StateFulWidhet与基础组件', StateFulGroup(), 'ful'),
           _item('布局开发', LessGroupPage(), 'layout'),
+          _item('如何检测用户手势以及处理点击事件', GesturePage(), 'gensture'),
+          _item('如何使用Fultter图片资源', ResPage(), 'respage'),
+          _item('如何打开第三方应用', LaunchPage(), 'launchpage'),
         ],
       ),
     );
