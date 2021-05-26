@@ -1,4 +1,6 @@
+import 'package:demo1/app_lifecycle.dart';
 import 'package:demo1/demo.dart';
+import 'package:demo1/flutter_widget_lifecycle.dart';
 import 'package:demo1/gesture_page.dart';
 import 'package:demo1/launch_page.dart';
 import 'package:demo1/less_group_page.dart';
@@ -10,22 +12,45 @@ import 'package:flutter/material.dart';
 
 void main() {
   ///runApp(MyApp());
-  runApp(MyApp());
+  runApp(DynamicTheme());
 }
 
-class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
+class DynamicTheme extends StatefulWidget {
+  const DynamicTheme({Key key}) : super(key: key);
+
+  @override
+  _DynamicThemeState createState() => _DynamicThemeState();
+}
+
+class _DynamicThemeState extends State<DynamicTheme> {
+  Brightness _brightness = Brightness.light;
   @override
   Widget build(BuildContext context) {
     // _function();
     return MaterialApp(
         title: 'Flutter Demo',
         theme: ThemeData(
+          brightness: _brightness,
           primarySwatch: Colors.blue,
         ),
         home: Scaffold(
           appBar: AppBar(title: Text('如何创建使用Flutter的路由与导航')),
-          body: RouteNavigator(),
+          body: Column(
+            children: [
+              RaisedButton(onPressed: (){
+                  setState(() {
+                    if (_brightness==Brightness.dark) {
+                      _brightness = Brightness.light;
+                    } else {
+                      _brightness = Brightness.dark;
+                    }
+                  });
+              },
+              child: Text('主题切换'),
+              ),
+              RouteNavigator()
+            ],
+          ),
         ),
         routes: <String, WidgetBuilder>{
           'plugin': (BuildContext context) => PluginUse(),
@@ -35,14 +60,14 @@ class MyApp extends StatelessWidget {
           'gensture': (BuildContext context) => GesturePage(),
           'respage': (BuildContext context) => ResPage(),
           'launchpage': (BuildContext context) => LaunchPage(),
+          'widgetlifecycle': (BuildContext context) => WidgetLifecycle(),
+          'applifecycle': (BuildContext context) => AppLifecycle(),
         });
   }
-
-  void _function() {
-    TestFunction testFunction = TestFunction();
-    testFunction.start();
-  }
 }
+
+
+
 
 class RouteNavigator extends StatefulWidget {
   @override
@@ -73,6 +98,8 @@ class _RouteNavigatorState extends State<RouteNavigator> {
           _item('如何检测用户手势以及处理点击事件', GesturePage(), 'gensture'),
           _item('如何使用Fultter图片资源', ResPage(), 'respage'),
           _item('如何打开第三方应用', LaunchPage(), 'launchpage'),
+          _item('Flutter的生命周期', WidgetLifecycle(), 'widgetlifecycle'),
+          _item('app应用的生命周期', AppLifecycle(), 'applifecycle'),
         ],
       ),
     );

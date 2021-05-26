@@ -7,7 +7,7 @@ void main() {
   runApp(LaunchPage());
 }
 
-const _url = 'https://flutter.dev';
+
 
 class LaunchPage extends StatelessWidget {
   // This widget is the root of your application.
@@ -35,7 +35,7 @@ class LaunchPage extends StatelessWidget {
             children: [
               RaisedButton(
                 onPressed: () => _launchURL(),
-                child: Text('打开浏览器'),
+                child: Text('打开Awehome'),
               )
             ],
           ),
@@ -44,7 +44,10 @@ class LaunchPage extends StatelessWidget {
     );
   }
 
-  void _launchURL() async => await canLaunch(_url)
-      ? await launch(_url)
-      : throw 'Could not launch $_url';
+  _launchURL() async {
+    const url='https://www.awehome.com/';
+   
+      await launch(url);
+
+  }
 }
