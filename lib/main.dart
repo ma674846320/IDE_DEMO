@@ -30,6 +30,7 @@ class _DynamicThemeState extends State<DynamicTheme> {
     return MaterialApp(
         title: 'Flutter Demo',
         theme: ThemeData(
+          // fontFamily: 'glyphicons', // 将该字体应用到全局
           brightness: _brightness,
           primarySwatch: Colors.blue,
         ),
@@ -46,7 +47,7 @@ class _DynamicThemeState extends State<DynamicTheme> {
                     }
                   });
               },
-              child: Text('主题切换'),
+              child: Text('主题切换abc',style: TextStyle(fontFamily: 'glyphicons'),),
               ),
               RouteNavigator()
             ],
