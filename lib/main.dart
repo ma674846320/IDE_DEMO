@@ -12,6 +12,7 @@ import 'package:demo1/photo_app_page.dart';
 import 'package:demo1/photo_hero.dart';
 import 'package:demo1/plugin_use.dart';
 import 'package:demo1/res_page.dart';
+import 'package:demo1/round_hero.dart';
 import 'package:demo1/state_less_widget.dart';
 import 'package:demo1/statefull_group_page.dart';
 import 'package:flutter/material.dart';
@@ -58,7 +59,7 @@ class _DynamicThemeState extends State<DynamicTheme> {
                 child: Text(
                   '主题切换abc', style: TextStyle(fontFamily: 'glyphicons'),),
               ),
-              RouteNavigator()
+                RouteNavigator()
             ],
           ),
         ),
@@ -78,6 +79,7 @@ class _DynamicThemeState extends State<DynamicTheme> {
           'logoappwidget': (BuildContext context) => LogoAppWidget(),
           'logoappbuilder': (BuildContext context) => LogoAppBuilder(),
           'photohero': (BuildContext context) => HeroAnimation(),
+          'radialhero': (BuildContext context) => RadialExpansion(),
         });
   }
 }
@@ -120,6 +122,7 @@ class _RouteNavigatorState extends State<RouteNavigator> {
           _item('动画Widget展示', LogoAppWidget(), 'logoappwidget'),
           _item('动画Builder展示', LogoAppBuilder(), 'logoappbuilder'),
           _item('PhotoHero', HeroAnimation(), 'photohero'),
+          _item('RadialHero', RadialExpansion(), 'radialhero'),
         ],
       ),
     );

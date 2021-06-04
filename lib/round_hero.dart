@@ -32,7 +32,7 @@ class RadialExpansion extends StatelessWidget {
   final Widget child;
 
   const RadialExpansion({Key key, this.maxRadius, this.child})
-      : clipRectSize = 2.0 * (maxRadius / math.sqrt2),
+      : clipRectSize = 2.0 * ( maxRadius / math.sqrt2 ),
         super(key: key);
 
   @override
@@ -137,49 +137,25 @@ class RadiaExpansionDemo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container();
-  }
-}
-
-class HeroAnimation extends StatelessWidget {
-  const HeroAnimation({Key key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    timeDilation = 10.0;
+    timeDilation = 5.0;
     return Scaffold(
       appBar: AppBar(
-        title: Text('Basic hero Animation'),
+        title: Text('Radial Transition Demo'),
       ),
-      body: Center(
-        child: Photo(
-          photo:
-              'https://img.yzcdn.cn/upload_files/2019/05/16/Fv_3OFCBRH-Dykevn6Dp9ZlkmgsC.jpg!280x280.jpg',
-          width: 300.0,
-          onTap: () {
-            Navigator.of(context).push(MaterialPageRoute(builder: (context) {
-              return Scaffold(
-                appBar: AppBar(
-                  title: const Text('Flippers Page'),
-                ),
-                body: Container(
-                  color: Colors.lightBlueAccent,
-                  padding: EdgeInsets.all(16),
-                  alignment: Alignment.topLeft,
-                  child: Photo(
-                    photo:
-                        'https://img.yzcdn.cn/upload_files/2019/05/16/Fv_3OFCBRH-Dykevn6Dp9ZlkmgsC.jpg!280x280.jpg',
-                    width: 100.0,
-                    onTap: () {
-                      Navigator.of(context).pop();
-                    },
-                  ),
-                ),
-              );
-            }));
-          },
+      body: Container(
+        padding: EdgeInsets.all(32),
+        alignment: FractionalOffset.bottomLeft,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            _buildHero(context, 'https://img.yzcdn.cn/upload_files/2019/05/16/Fv_3OFCBRH-Dykevn6Dp9ZlkmgsC.jpg!280x280.jpg', 'miaoshu'),
+            _buildHero(context, 'https://img.yzcdn.cn/upload_files/2019/05/16/Fv_3OFCBRH-Dykevn6Dp9ZlkmgsC.jpg!280x280.jpg', 'miaoshu'),
+            _buildHero(context, 'https://img.yzcdn.cn/upload_files/2019/05/16/Fv_3OFCBRH-Dykevn6Dp9ZlkmgsC.jpg!280x280.jpg', 'miaoshu'),
+          ],
         ),
       ),
     );
   }
 }
+
+
