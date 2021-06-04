@@ -1,152 +1,143 @@
+import 'package:demo1/Image_less.dart';
+import 'package:demo1/animation_builder.dart';
+import 'package:demo1/animation_less.dart';
+import 'package:demo1/animation_widget.dart';
+import 'package:demo1/app_lifecycle.dart';
+import 'package:demo1/demo.dart';
+import 'package:demo1/flutter_widget_lifecycle.dart';
+import 'package:demo1/gesture_page.dart';
+import 'package:demo1/launch_page.dart';
+import 'package:demo1/less_group_page.dart';
+import 'package:demo1/photo_app_page.dart';
+import 'package:demo1/photo_hero.dart';
+import 'package:demo1/plugin_use.dart';
+import 'package:demo1/res_page.dart';
+import 'package:demo1/state_less_widget.dart';
+import 'package:demo1/statefull_group_page.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart' show timeDilation;
-import 'dart:math' as math;
 
-class Photo extends StatelessWidget {
-  final String photo;
-  final VoidCallback onTap;
-  final double width;
-
-  const Photo({Key key, this.photo, this.onTap, this.width})
-      : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Material(
-      color: Theme.of(context).primaryColor.withOpacity(0.25),
-      child: InkWell(
-        onTap: onTap,
-        child: LayoutBuilder(builder: (context, size) {
-          return Image.network(
-            photo,
-            fit: BoxFit.contain,
-          );
-        }),
-      ),
-    );
-  }
+void main() {
+  ///runApp(MyApp());
+  runApp(DynamicTheme());
 }
 
-class RadialExpansion extends StatelessWidget {
-  final double maxRadius;
-  final clipRectSize;
-  final Widget child;
 
-  const RadialExpansion({
-    Key key,
-    this.maxRadius,
-    this.child})
-      : clipRectSize = 2.0 * (maxRadius/ math.sqrt2),super(key: key);
+class DynamicTheme extends StatefulWidget {
+  const DynamicTheme({Key key}) : super(key: key);
+
+  @override
+  _DynamicThemeState createState() => _DynamicThemeState();
+}
+
+class _DynamicThemeState extends State<DynamicTheme> {
+  Brightness _brightness = Brightness.light;
 
   @override
   Widget build(BuildContext context) {
-    return ClipOval(
-      child: Center(
-        child: SizedBox(
-          width: clipRectSize,
-          height: clipRectSize,
-          child: ClipRect(
-            child: child,
-          ),
+    // _function();
+    return MaterialApp(
+        title: 'Flutter Demo',
+        theme: ThemeData(
+          // fontFamily: 'glyphicons', // 将该字体应用到全局
+          brightness: _brightness,
+          primarySwatch: Colors.blue,
         ),
-      ),
-    );
-  }
-}
-
-class RadiaExpansionDemo extends StatelessWidget {
-  static const double kMinRadius = 32.0;
-  static const double kMaxRadius = 128.0;
-  static const opacityCurve = const Interval(0.0, 0.75, curve:Curves.fastOutSlowIn);
-  static RectTween _createRectTween(Rect begin, Rect end){
-    return MaterialRectArcTween(begin:begin,end:end);
-  }
-  static Widget _buildPage(BuildContext context, String imageName, String description) {
-    return Container(
-      color: Theme.of(context).canvasColor,
-      child: Center(
-        child: Card(
-          elevation: 8,
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
+        home: Scaffold(
+          appBar: AppBar(title: Text('如何创建使用Flutter的路由与导航')),
+          body: ListView(
             children: [
-              SizedBox(
-                width: kMaxRadius*2,
-                height: kMaxRadius*2,
-                child: Hero(
-                  createRectTween: _createRectTween,
-                  tag: imageName,
-                  child: RadialExpansion(
-                    maxRadius: kMaxRadius,
-                    child: Photo(
-                      photo: imageName,
-                      onTap: (){
-                        Navigator.of(context).pop();
-                      },
-                    ),
-                  ),
-                ),
+              RaisedButton(onPressed: () {
+                setState(() {
+                  if (_brightness == Brightness.dark) {
+                    _brightness = Brightness.light;
+                  } else {
+                    _brightness = Brightness.dark;
+                  }
+                });
+              },
+                child: Text(
+                  '主题切换abc', style: TextStyle(fontFamily: 'glyphicons'),),
               ),
-              Text(
-                description,
-                style: TextStyle(fontWeight: FontWeight.bold),
-                textScaleFactor: 3.0,
-              ),
-              const SizedBox(
-                height: 16,
-              )
+              RouteNavigator()
             ],
           ),
         ),
-      ),
-    );
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Container();
+        routes: <String, WidgetBuilder>{
+          'plugin': (BuildContext context) => PluginUse(),
+          'layout': (BuildContext context) => LessGroupPage(),
+          'ful': (BuildContext context) => StateFulGroup(),
+          'less': (BuildContext context) => StateLessWidget(),
+          'gensture': (BuildContext context) => GesturePage(),
+          'respage': (BuildContext context) => ResPage(),
+          'launchpage': (BuildContext context) => LaunchPage(),
+          'widgetlifecycle': (BuildContext context) => WidgetLifecycle(),
+          'applifecycle': (BuildContext context) => AppLifecycle(),
+          'photoapp': (BuildContext context) => PhotoApp(),
+          'imageless': (BuildContext context) => ImageLess(),
+          'logoapp': (BuildContext context) => LogoApp(),
+          'logoappwidget': (BuildContext context) => LogoAppWidget(),
+          'logoappbuilder': (BuildContext context) => LogoAppBuilder(),
+          'photohero': (BuildContext context) => HeroAnimation(),
+        });
   }
 }
 
 
-class HeroAnimation extends StatelessWidget {
-  const HeroAnimation({Key key}) : super(key: key);
+class RouteNavigator extends StatefulWidget {
+  @override
+  _RouteNavigatorState createState() => _RouteNavigatorState();
+}
+
+class _RouteNavigatorState extends State<RouteNavigator> {
+  bool byName = false;
 
   @override
   Widget build(BuildContext context) {
-    timeDilation = 10.0;
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Basic hero Animation'),
+    return Container(
+      alignment: Alignment.center,
+      child: Column(
+        children: [
+          SwitchListTile(
+              title: Text('${byName ? '' : '不'}通过路由跳转'),
+              value: byName,
+              onChanged: (value) {
+                setState(() {
+                  byName = value;
+                });
+              }),
+          _item('如何使用Flutter包和插件', PluginUse(), 'plugin'),
+          _item('StatelessWidget与基础组件', StateLessWidget(), 'less'),
+          _item('StateFulWidhet与基础组件', StateFulGroup(), 'ful'),
+          _item('布局开发', LessGroupPage(), 'layout'),
+          _item('如何检测用户手势以及处理点击事件', GesturePage(), 'gensture'),
+          _item('如何使用Fultter图片资源', ResPage(), 'respage'),
+          _item('如何打开第三方应用', LaunchPage(), 'launchpage'),
+          _item('Flutter的生命周期', WidgetLifecycle(), 'widgetlifecycle'),
+          _item('app应用的生命周期', AppLifecycle(), 'applifecycle'),
+          _item('拍照app', PhotoApp(), 'photoapp'),
+          _item('Image展示', ImageLess(), 'imageless'),
+          _item('动画展示', LogoApp(), 'logoapp'),
+          _item('动画Widget展示', LogoAppWidget(), 'logoappwidget'),
+          _item('动画Builder展示', LogoAppBuilder(), 'logoappbuilder'),
+          _item('PhotoHero', HeroAnimation(), 'photohero'),
+        ],
       ),
-      body: Center(
-        child: Photo(
-          photo:
-              'https://img.yzcdn.cn/upload_files/2019/05/16/Fv_3OFCBRH-Dykevn6Dp9ZlkmgsC.jpg!280x280.jpg',
-          width: 300.0,
-          onTap: () {
-            Navigator.of(context).push(MaterialPageRoute(builder: (context) {
-              return Scaffold(
-                appBar: AppBar(
-                  title: const Text('Flippers Page'),
-                ),
-                body: Container(
-                  color: Colors.lightBlueAccent,
-                  padding: EdgeInsets.all(16),
-                  alignment: Alignment.topLeft,
-                  child: Photo(
-                    photo:
-                        'https://img.yzcdn.cn/upload_files/2019/05/16/Fv_3OFCBRH-Dykevn6Dp9ZlkmgsC.jpg!280x280.jpg',
-                    width: 100.0,
-                    onTap: () {
-                      Navigator.of(context).pop();
-                    },
-                  ),
-                ),
-              );
-            }));
-          },
-        ),
+    );
+  }
+
+
+  _item(String title, page, String routeName) {
+    return Container(
+      child: RaisedButton(
+        onPressed: () {
+          if (byName) {
+            Navigator.pushNamed(context, routeName);
+          } else {
+            Navigator.push(
+                context, MaterialPageRoute(builder: (context) => page));
+          }
+        },
+        child: Text(title),
       ),
     );
   }
